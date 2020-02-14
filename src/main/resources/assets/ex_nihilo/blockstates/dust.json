@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "": [
+      { "model": "ex_nihilo:block/dust" },
+      { "model": "ex_nihilo:block/dust", "y": 90 },
+      { "model": "ex_nihilo:block/dust", "y": 180 },
+      { "model": "ex_nihilo:block/dust", "y": 270 }
+    ]
+  }
+}

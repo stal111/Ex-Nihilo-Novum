@@ -1,0 +1,4 @@
+{
+  "input": { "item": "minecraft:sand" },
+  "output": { "item": "ex_nihilo:dust" }
+}

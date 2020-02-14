@@ -1,0 +1,27 @@
+{
+	"name": "main_loot",
+	"type": "minecraft:block",
+	"pools": [
+		{
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"name": "ex_nihilo:silkworm"
+				}
+			],
+			"conditions": [
+				{
+					"condition": "minecraft:match_tool",
+					"predicate": {
+						"tag": "ex_nihilo:crooks"
+					}
+				},
+				{
+					"condition": "minecraft:random_chance",
+					"chance": 0.1
+				}
+			]
+		}
+	]
+}

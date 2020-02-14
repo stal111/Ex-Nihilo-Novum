@@ -1,0 +1,7 @@
+{
+  "parent": "ex_nihilo:block/mesh",
+  "textures": {
+    "texture": "minecraft:block/white_wool"
+  }
+}
+

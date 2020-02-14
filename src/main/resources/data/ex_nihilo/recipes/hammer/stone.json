@@ -1,0 +1,4 @@
+{
+  "input": { "item": "minecraft:stone" },
+  "output": { "item": "minecraft:cobblestone" }
+}

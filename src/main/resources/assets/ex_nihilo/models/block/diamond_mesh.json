@@ -1,0 +1,7 @@
+{
+  "parent": "ex_nihilo:block/mesh",
+  "textures": {
+    "texture": "minecraft:block/diamond_block"
+  }
+}
+
