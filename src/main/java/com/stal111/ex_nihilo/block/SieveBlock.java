@@ -8,6 +8,7 @@ import com.stal111.ex_nihilo.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
@@ -15,6 +16,8 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.IBooleanFunction;
@@ -24,6 +27,7 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Mod;
 
 import javax.annotation.Nullable;
 
@@ -67,6 +71,9 @@ public class SieveBlock extends Block implements ITileEntityProvider {
                         if (!player.abilities.isCreativeMode) {
                             stack.shrink(1);
                         }
+                        if (!world.isRemote()) {
+                            world.setBlockState(pos, state.with(MESH, true), 2);
+                        }
                         return ActionResultType.SUCCESS;
                     }
                 } else if (sieveTileEntity.getContent().isEmpty()) {
@@ -79,6 +86,7 @@ public class SieveBlock extends Block implements ITileEntityProvider {
                 }
             } else {
                 if (sieveTileEntity.makeProgress(player)) {
+                    world.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_COMPOSTER_FILL_SUCCESS, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
                     return ActionResultType.SUCCESS;
                 }
             }
@@ -95,5 +103,25 @@ public class SieveBlock extends Block implements ITileEntityProvider {
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(MESH);
+    }
+
+    @Override
+    public void onReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (state.getBlock() != newState.getBlock()) {
+            if (!world.isRemote()) {
+                SieveTileEntity tileEntity = (SieveTileEntity) world.getTileEntity(pos);
+                if (!tileEntity.getMesh().isEmpty()) {
+                    ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), tileEntity.getMesh());
+                    itemEntity.setDefaultPickupDelay();
+                    world.addEntity(itemEntity);
+                }
+                if (!tileEntity.getContent().isEmpty()) {
+                    ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), tileEntity.getContent());
+                    itemEntity.setDefaultPickupDelay();
+                    world.addEntity(itemEntity);
+                }
+            }
+            super.onReplaced(state, world, pos, newState, isMoving);
+        }
     }
 }

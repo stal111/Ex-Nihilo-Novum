@@ -2,15 +2,13 @@ package com.stal111.ex_nihilo.tileentity;
 
 import com.stal111.ex_nihilo.init.ModTileEntities;
 import com.stal111.ex_nihilo.item.MeshItem;
-import com.stal111.ex_nihilo.recipe.HammerRecipe;
-import com.stal111.ex_nihilo.recipe.SieveRecipe;
+import com.stal111.ex_nihilo.recipe.SieveRecipeManager;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.text.StringTextComponent;
 
 public class SieveTileEntity extends TileEntity {
 
@@ -28,8 +26,9 @@ public class SieveTileEntity extends TileEntity {
             progress += 1;
             if (progress == 10) {
                 if (world != null && !world.isRemote()) {
-                    player.sendMessage(new StringTextComponent(String.valueOf(HammerRecipe.getOutput(content))));
-                    world.addEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, SieveRecipe.getOutput(content)));
+                    for (ItemStack stack : SieveRecipeManager.getOutputs(getMesh(), content)) {
+                        world.addEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, stack));
+                    }
                 }
                 reset();
             }
@@ -67,7 +66,7 @@ public class SieveTileEntity extends TileEntity {
     }
 
     public boolean setContent(ItemStack stack) {
-        if (SieveRecipe.getOutput(stack) != null) {
+        if (SieveRecipeManager.getOutputs(getMesh(), stack) != null) {
             if (progress == 0) {
                 if (!meshStack.isEmpty() && content.isEmpty()) {
                     content = new ItemStack(stack.getItem());

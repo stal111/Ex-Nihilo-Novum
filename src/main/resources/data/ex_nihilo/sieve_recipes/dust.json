@@ -1,0 +1,8 @@
+{
+  "mesh": { "item": "ex_nihilo:string_mesh" },
+  "input": { "item": "ex_nihilo:dust" },
+  "outputs": [
+    { "out": {"item": "minecraft:bone_meal" }, "probability": 0.2 },
+    { "out": {"item": "minecraft:gunpowder" }, "probability": 0.07 }
+  ]
+}

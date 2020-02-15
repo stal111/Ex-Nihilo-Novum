@@ -1,0 +1,10 @@
+{
+  "mesh": { "item": "ex_nihilo:diamond_mesh" },
+  "input": { "item": "minecraft:gravel" },
+  "outputs": [
+    { "out": {"item": "minecraft:diamond" }, "probability": 0.016 },
+    { "out": {"item": "minecraft:emerald" }, "probability": 0.016 },
+    { "out": {"item": "ex_nihilo:gold_ore_piece" }, "probability": 0.15 },
+    { "out": {"item": "ex_nihilo:iron_ore_piece" }, "probability": 0.25 }
+  ]
+}

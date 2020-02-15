@@ -1,0 +1,7 @@
+{
+  "mesh": { "item": "ex_nihilo:string_mesh" },
+  "input": { "item": "minecraft:soul_sand" },
+  "outputs": [
+    { "out": {"item": "minecraft:nether_wart" }, "probability": 0.1 }
+  ]
+}

@@ -38,6 +38,10 @@ public class ModItems {
     public static final RegistryObject<MeshItem> IRON_MESH = register("iron_mesh", new MeshItem(properties()));
     public static final RegistryObject<MeshItem> DIAMOND_MESH = register("diamond_mesh", new MeshItem(properties()));
 
+    public static final RegistryObject<Item> GOLD_ORE_PIECE = register("gold_ore_piece", new Item(properties()));
+    public static final RegistryObject<Item> GOLD_ORE_CHUNK = register("gold_ore_chunk", new Item(properties()));
+    public static final RegistryObject<Item> IRON_ORE_PIECE = register("iron_ore_piece", new Item(properties()));
+    public static final RegistryObject<Item> IRON_ORE_CHUNK = register("iron_ore_chunk", new Item(properties()));
 
     private static <T extends Item> RegistryObject<T> register(String name, T item) {
         return ITEMS.register(name, () -> item);

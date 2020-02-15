@@ -1,0 +1,7 @@
+{
+  "mesh": { "item": "ex_nihilo:string_mesh" },
+  "input": { "item": "minecraft:gravel" },
+  "outputs": [
+    { "out": {"item": "minecraft:flint" }, "probability": 0.25 }
+  ]
+}

@@ -7,26 +7,32 @@ import com.stal111.ex_nihilo.init.ModItems;
 import com.stal111.ex_nihilo.init.ModTileEntities;
 import com.stal111.ex_nihilo.recipe.HammerRecipe;
 import com.stal111.ex_nihilo.recipe.SieveRecipe;
+import com.stal111.ex_nihilo.recipe.SieveRecipeManager;
 import com.stal111.ex_nihilo.render.SieveTileEntityRender;
 import com.stal111.ex_nihilo.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.SignTileEntityRenderer;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.resources.SimpleReloadableResourceManager;
+import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
+import net.minecraftforge.fml.event.lifecycle.*;
+import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.fml.event.server.ServerLifecycleEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -43,8 +49,6 @@ public class ExNihilo {
     // Directly reference a log4j logger.
     public static final Logger LOGGER = LogManager.getLogger(ExNihilo.MOD_ID);
 
-    private static final String INNER_RECIPES_FILE = "recipes.json";
-
     public static final ItemGroup ITEM_GROUP = new ExNihiloItemGroup();
 
     public ExNihilo() {
@@ -58,6 +62,7 @@ public class ExNihilo {
         eventBus.addListener(this::enqueueIMC);
         eventBus.addListener(this::processIMC);
         eventBus.addListener(this::doClientStuff);
+        eventBus.addListener(this::onServerStarting);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
@@ -67,31 +72,6 @@ public class ExNihilo {
         // some preinit code
         LOGGER.info("HELLO FROM PREINIT");
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
-
-        for (String string : getResourceFiles("/data/ex_nihilo/recipes/hammer/")) {
-            System.out.println(string);
-            JsonObject defaultRecipes = null;
-            try {
-                defaultRecipes = Utils.readJson("/data/ex_nihilo/recipes/hammer/" + string, true).getAsJsonObject();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-
-            HammerRecipe.initRecipes((defaultRecipes.getAsJsonObject()));
-        }
-
-
-        for (String string : getResourceFiles("/data/ex_nihilo/recipes/sieve/")) {
-            System.out.println(string);
-            JsonObject defaultRecipes = null;
-            try {
-                defaultRecipes = Utils.readJson("/data/ex_nihilo/recipes/sieve/" + string, true).getAsJsonObject();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-
-            SieveRecipe.initRecipes((defaultRecipes.getAsJsonObject()));
-        }
     }
 
     private List<String> getResourceFiles(String path) {
@@ -133,8 +113,20 @@ public class ExNihilo {
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
-    public void onServerStarting(FMLServerStartingEvent event) {
+    public void onServerStarting(FMLServerAboutToStartEvent event) {
+        event.getServer().resourceManager.addReloadListener(new SieveRecipeManager());
         // do something when the server starts
         LOGGER.info("HELLO from server starting");
+        for (String string : getResourceFiles("/data/ex_nihilo/recipes/hammer/")) {
+            System.out.println(string);
+            JsonObject defaultRecipes = null;
+            try {
+                defaultRecipes = Utils.readJson("/data/ex_nihilo/recipes/hammer/" + string, true).getAsJsonObject();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+
+            HammerRecipe.initRecipes((defaultRecipes.getAsJsonObject()));
+        }
     }
 }
