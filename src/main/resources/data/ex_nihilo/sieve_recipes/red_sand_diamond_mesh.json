@@ -1,0 +1,7 @@
+{
+  "mesh": { "item": "ex_nihilo:diamond_mesh" },
+  "input": { "item": "minecraft:red_sand" },
+  "outputs": [
+    { "out": {"item": "ex_nihilo:iron_ore_piece" }, "probability": 0.5 }
+  ]
+}

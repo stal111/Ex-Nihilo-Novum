@@ -1,10 +1,7 @@
 package com.stal111.ex_nihilo.init;
 
 import com.stal111.ex_nihilo.ExNihilo;
-import com.stal111.ex_nihilo.item.CrookItem;
-import com.stal111.ex_nihilo.item.HammerItem;
-import com.stal111.ex_nihilo.item.MeshItem;
-import com.stal111.ex_nihilo.item.SilkwormItem;
+import com.stal111.ex_nihilo.item.*;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemTier;
@@ -42,6 +39,13 @@ public class ModItems {
     public static final RegistryObject<Item> GOLD_ORE_CHUNK = register("gold_ore_chunk", new Item(properties()));
     public static final RegistryObject<Item> IRON_ORE_PIECE = register("iron_ore_piece", new Item(properties()));
     public static final RegistryObject<Item> IRON_ORE_CHUNK = register("iron_ore_chunk", new Item(properties()));
+
+    public static final RegistryObject<Item> STONE_PEBBLE = register("stone_pebble", new Item(properties()));
+    public static final RegistryObject<Item> GRANITE_PEBBLE = register("granite_pebble", new Item(properties()));
+    public static final RegistryObject<Item> DIORITE_PEBBLE = register("diorite_pebble", new Item(properties()));
+    public static final RegistryObject<Item> ANDESITE_PEBBLE = register("andesite_pebble", new Item(properties()));
+
+    public static final RegistryObject<GrassSeedsItem> GRASS_SEEDS = register("grass_seeds", new GrassSeedsItem(properties()));
 
     private static <T extends Item> RegistryObject<T> register(String name, T item) {
         return ITEMS.register(name, () -> item);

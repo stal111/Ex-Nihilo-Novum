@@ -1,0 +1,10 @@
+{
+  "mesh": { "item": "ex_nihilo:diamond_mesh" },
+  "input": { "item": "minecraft:soul_sand" },
+  "outputs": [
+    { "out": {"item": "minecraft:nether_wart" }, "probability": 0.8 },
+    { "out": {"item": "minecraft:quartz" } },
+    { "out": {"item": "minecraft:quartz" }, "probability": 0.4 },
+    { "out": {"item": "minecraft:ghast_tear" }, "probability": 0.02 }
+  ]
+}

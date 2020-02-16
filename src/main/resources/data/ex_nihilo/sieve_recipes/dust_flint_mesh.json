@@ -1,0 +1,9 @@
+{
+  "mesh": { "item": "ex_nihilo:flint_mesh" },
+  "input": { "item": "ex_nihilo:dust" },
+  "outputs": [
+    { "out": {"item": "minecraft:bone_meal" }, "probability": 0.35 },
+    { "out": {"item": "minecraft:gunpowder" }, "probability": 0.15 },
+    { "out": {"item": "minecraft:blaze_powder" }, "probability": 0.01 }
+  ]
+}

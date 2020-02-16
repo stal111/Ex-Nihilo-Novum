@@ -1,0 +1,24 @@
+{
+  "mesh": { "item": "ex_nihilo:string_mesh" },
+  "input": { "item": "minecraft:dirt" },
+  "outputs": [
+    { "out": { "item": "ex_nihilo:stone_pebble", "count": 2 } },
+    { "out": { "item": "ex_nihilo:stone_pebble" }, "probability": 0.8 },
+    { "out": { "item": "ex_nihilo:granite_pebble" }, "probability": 0.5 },
+    { "out": { "item": "ex_nihilo:granite_pebble" }, "probability": 0.2 },
+    { "out": { "item": "ex_nihilo:diorite_pebble" }, "probability": 0.5 },
+    { "out": { "item": "ex_nihilo:diorite_pebble" }, "probability": 0.2 },
+    { "out": { "item": "ex_nihilo:andesite_pebble" }, "probability": 0.5 },
+    { "out": { "item": "ex_nihilo:andesite_pebble" }, "probability": 0.2 },
+    { "out": { "item": "minecraft:wheat_seeds" }, "probability": 0.65 },
+    { "out": { "item": "minecraft:melon_seeds" }, "probability": 0.3 },
+    { "out": { "item": "minecraft:pumpkin_seeds" }, "probability": 0.3 },
+    { "out": { "item": "ex_nihilo:grass_seeds" }, "probability": 0.05 },
+    { "out": { "item": "minecraft:cactus" }, "probability": 0.05 },
+    { "out": { "item": "minecraft:sugar_cane" }, "probability": 0.05 },
+    { "out": { "item": "minecraft:carrot" }, "probability": 0.05 },
+    { "out": { "item": "minecraft:potato" }, "probability": 0.05 },
+    { "out": { "item": "minecraft:beetroot" }, "probability": 0.05 },
+    { "out": { "item": "minecraft:sweet_berries" }, "probability": 0.05 }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "mesh": { "item": "ex_nihilo:iron_mesh" },
+  "input": { "item": "ex_nihilo:dust" },
+  "outputs": [
+    { "out": {"item": "minecraft:redstone" }, "probability": 0.12 },
+    { "out": {"item": "minecraft:gunpowder" }, "probability": 0.2 },
+    { "out": {"item": "minecraft:glowstone_dust" }, "probability": 0.06 },
+    { "out": {"item": "minecraft:blaze_powder" }, "probability": 0.03 }
+  ]
+}

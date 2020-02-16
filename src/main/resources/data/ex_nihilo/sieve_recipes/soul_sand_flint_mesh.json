@@ -1,0 +1,8 @@
+{
+  "mesh": { "item": "ex_nihilo:flint_mesh" },
+  "input": { "item": "minecraft:soul_sand" },
+  "outputs": [
+    { "out": {"item": "minecraft:nether_wart" }, "probability": 0.3 },
+    { "out": {"item": "minecraft:quartz" }, "probability": 0.8 }
+  ]
+}
