@@ -23,8 +23,8 @@ public class GrassSeedsItem extends Item {
             if (!context.getPlayer().abilities.isCreativeMode) {
                 context.getItem().shrink(1);
             }
-            world.setBlockState(pos, Blocks.GRASS_BLOCK.getDefaultState(), 2);
             world.playEvent(context.getPlayer(), 2001, pos, Block.getStateId(world.getBlockState(pos)));
+            world.setBlockState(pos, Blocks.GRASS_BLOCK.getDefaultState(), 2);
             return ActionResultType.SUCCESS;
         }
         return super.onItemUse(context);

@@ -22,7 +22,6 @@ public class SieveTileEntityRender extends TileEntityRenderer<SieveTileEntity> {
 
     @Override
     public void render(SieveTileEntity sieveTileEntity, float v, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int combinedLight, int combinedOverlay) {
-
         renderMesh(sieveTileEntity.getMesh(), matrixStack, renderTypeBuffer, combinedLight, combinedOverlay);
         if (!sieveTileEntity.getContent().isEmpty() && sieveTileEntity.getProgress() < 10) {
             renderContent(sieveTileEntity.getContent(), sieveTileEntity.getProgress() / 10F, matrixStack, renderTypeBuffer, combinedLight, combinedOverlay);

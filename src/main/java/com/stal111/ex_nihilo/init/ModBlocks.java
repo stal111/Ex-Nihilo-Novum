@@ -1,8 +1,9 @@
 package com.stal111.ex_nihilo.init;
 
 import com.stal111.ex_nihilo.ExNihilo;
-import com.stal111.ex_nihilo.block.InfestedLeavesBlock;
+import com.stal111.ex_nihilo.block.InfestingLeavesBlock;
 import com.stal111.ex_nihilo.block.SieveBlock;
+import com.stal111.ex_nihilo.block.WoodenCrucibleBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SandBlock;
@@ -18,12 +19,7 @@ public class ModBlocks {
 
     public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, ExNihilo.MOD_ID);
 
-    public static final RegistryObject<InfestedLeavesBlock> INFESTED_OAK_LEAVES = register("infested_oak_leaves", new InfestedLeavesBlock(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).sound(SoundType.PLANT).notSolid()));
-    public static final RegistryObject<InfestedLeavesBlock> INFESTED_BIRCH_LEAVES = register("infested_birch_leaves", new InfestedLeavesBlock(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).sound(SoundType.PLANT).notSolid()));
-    public static final RegistryObject<InfestedLeavesBlock> INFESTED_SPRUCE_LEAVES = register("infested_spruce_leaves", new InfestedLeavesBlock(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).sound(SoundType.PLANT).notSolid()));
-    public static final RegistryObject<InfestedLeavesBlock> INFESTED_JUNGLE_LEAVES = register("infested_jungle_leaves", new InfestedLeavesBlock(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).sound(SoundType.PLANT).notSolid()));
-    public static final RegistryObject<InfestedLeavesBlock> INFESTED_ACACIA_LEAVES = register("infested_acacia_leaves", new InfestedLeavesBlock(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).sound(SoundType.PLANT).notSolid()));
-    public static final RegistryObject<InfestedLeavesBlock> INFESTED_DARK_OAK_LEAVES = register("infested_dark_oak_leaves", new InfestedLeavesBlock(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).sound(SoundType.PLANT).notSolid()));
+    public static final RegistryObject<InfestingLeavesBlock> INFESTING_LEAVES = register("infesting_leaves", new InfestingLeavesBlock(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).sound(SoundType.PLANT).notSolid()));
 
     public static final RegistryObject<Block> DUST = register("dust", new SandBlock(14406560, Block.Properties.from(Blocks.SAND)));
 
@@ -33,6 +29,13 @@ public class ModBlocks {
     public static final RegistryObject<SieveBlock> JUNGLE_SIEVE = register("jungle_sieve", new SieveBlock(Block.Properties.from(Blocks.OAK_PLANKS).notSolid()));
     public static final RegistryObject<SieveBlock> ACACIA_SIEVE = register("acacia_sieve", new SieveBlock(Block.Properties.from(Blocks.OAK_PLANKS).notSolid()));
     public static final RegistryObject<SieveBlock> DARK_OAK_SIEVE = register("dark_oak_sieve", new SieveBlock(Block.Properties.from(Blocks.OAK_PLANKS).notSolid()));
+
+    public static final RegistryObject<WoodenCrucibleBlock> OAK_CRUCIBLE = register("oak_crucible", new WoodenCrucibleBlock(Block.Properties.from(Blocks.OAK_LOG).notSolid()));
+    public static final RegistryObject<WoodenCrucibleBlock> SPRUCE_CRUCIBLE = register("spruce_crucible", new WoodenCrucibleBlock(Block.Properties.from(Blocks.OAK_LOG).notSolid()));
+    public static final RegistryObject<WoodenCrucibleBlock> BIRCH_CRUCIBLE = register("birch_crucible", new WoodenCrucibleBlock(Block.Properties.from(Blocks.OAK_LOG).notSolid()));
+    public static final RegistryObject<WoodenCrucibleBlock> JUNGLE_CRUCIBLE = register("jungle_crucible", new WoodenCrucibleBlock(Block.Properties.from(Blocks.OAK_LOG).notSolid()));
+    public static final RegistryObject<WoodenCrucibleBlock> ACACIA_CRUCIBLE = register("acacia_crucible", new WoodenCrucibleBlock(Block.Properties.from(Blocks.OAK_LOG).notSolid()));
+    public static final RegistryObject<WoodenCrucibleBlock> DARK_OAK_CRUCIBLE = register("dark_oak_crucible", new WoodenCrucibleBlock(Block.Properties.from(Blocks.OAK_LOG).notSolid()));
 
     private static <T extends Block> RegistryObject<T> register(String name, T block) {
         ModItems.ITEMS.register(name, () -> new BlockItem(block, new Item.Properties().group(ExNihilo.ITEM_GROUP)));

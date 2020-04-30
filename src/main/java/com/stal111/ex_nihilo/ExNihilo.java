@@ -6,13 +6,19 @@ import com.stal111.ex_nihilo.init.ModBlocks;
 import com.stal111.ex_nihilo.init.ModItems;
 import com.stal111.ex_nihilo.init.ModTileEntities;
 import com.stal111.ex_nihilo.recipe.HammerRecipe;
+import com.stal111.ex_nihilo.recipe.HammerRecipeManager;
 import com.stal111.ex_nihilo.recipe.SieveRecipe;
 import com.stal111.ex_nihilo.recipe.SieveRecipeManager;
+import com.stal111.ex_nihilo.render.InfestingLeavesTileEntityRender;
 import com.stal111.ex_nihilo.render.SieveTileEntityRender;
+import com.stal111.ex_nihilo.render.WoodenCrucibleTileEntityRender;
+import com.stal111.ex_nihilo.tileentity.InfestingLeavesTileEntity;
 import com.stal111.ex_nihilo.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.tileentity.SignTileEntityRenderer;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.BlockItem;
@@ -94,6 +100,8 @@ public class ExNihilo {
 
     private void doClientStuff(final FMLClientSetupEvent event) {
         ClientRegistry.bindTileEntityRenderer(ModTileEntities.SIEVE.get(), SieveTileEntityRender::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.WOODEN_CRUCIBLE.get(), WoodenCrucibleTileEntityRender::new);
+        ClientRegistry.bindTileEntityRenderer(ModTileEntities.INFESTING_LEAVES.get(), InfestingLeavesTileEntityRender::new);
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
@@ -115,18 +123,6 @@ public class ExNihilo {
     @SubscribeEvent
     public void onServerStarting(FMLServerAboutToStartEvent event) {
         event.getServer().resourceManager.addReloadListener(new SieveRecipeManager());
-        // do something when the server starts
-        LOGGER.info("HELLO from server starting");
-        for (String string : getResourceFiles("/data/ex_nihilo/recipes/hammer/")) {
-            System.out.println(string);
-            JsonObject defaultRecipes = null;
-            try {
-                defaultRecipes = Utils.readJson("/data/ex_nihilo/recipes/hammer/" + string, true).getAsJsonObject();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-
-            HammerRecipe.initRecipes((defaultRecipes.getAsJsonObject()));
-        }
+        event.getServer().resourceManager.addReloadListener(new HammerRecipeManager());
     }
 }

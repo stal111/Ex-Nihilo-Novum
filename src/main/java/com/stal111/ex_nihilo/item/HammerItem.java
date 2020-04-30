@@ -1,6 +1,7 @@
 package com.stal111.ex_nihilo.item;
 
 import com.stal111.ex_nihilo.recipe.HammerRecipe;
+import com.stal111.ex_nihilo.recipe.HammerRecipeManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -24,25 +25,14 @@ public class HammerItem extends ToolItem {
 
     @Override
     public float getDestroySpeed(ItemStack stack, BlockState state) {
-        if (HammerRecipe.getOutput(new ItemStack(state.getBlock())) != null) {
+        if (HammerRecipeManager.getOutputs(new ItemStack(state.getBlock())) != null) {
             return efficiency;
         }
         return super.getDestroySpeed(stack, state);
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity playerEntity, Hand p_77659_3_) {
-        playerEntity.sendMessage(new StringTextComponent(String.valueOf(HammerRecipe.recipes.size())));
-        for (HammerRecipe recipe : HammerRecipe.recipes) {
-            playerEntity.sendMessage(new StringTextComponent(recipe.input.getTranslationKey() + recipe.output.getTranslationKey()));
-        }
-
-        playerEntity.sendMessage(new StringTextComponent(HammerRecipe.getOutput(new ItemStack(Blocks.COBBLESTONE)).getTranslationKey()));
-        return super.onItemRightClick(world, playerEntity, p_77659_3_);
-    }
-
-    @Override
     public boolean canHarvestBlock(BlockState state) {
-        return this.getTier().getHarvestLevel() >= state.getHarvestLevel() && HammerRecipe.getOutput(new ItemStack(state.getBlock())) != null;
+        return this.getTier().getHarvestLevel() >= state.getHarvestLevel() && HammerRecipeManager.getOutputs(new ItemStack(state.getBlock())) != null;
     }
 }

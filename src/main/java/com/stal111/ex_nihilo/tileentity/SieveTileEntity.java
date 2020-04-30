@@ -10,6 +10,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 
+import java.util.Objects;
+
 public class SieveTileEntity extends TileEntity {
 
     public ItemStack meshStack = ItemStack.EMPTY;
@@ -26,7 +28,7 @@ public class SieveTileEntity extends TileEntity {
             progress += 1;
             if (progress == 10) {
                 if (world != null && !world.isRemote()) {
-                    for (ItemStack stack : SieveRecipeManager.getOutputs(getMesh(), content)) {
+                    for (ItemStack stack : Objects.requireNonNull(SieveRecipeManager.getOutputs(getMesh(), content))) {
                         world.addEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, stack));
                     }
                 }
@@ -91,21 +93,21 @@ public class SieveTileEntity extends TileEntity {
     }
 
     @Override
-    public void read(CompoundNBT compoundNBT) {
-        super.read(compoundNBT);
-        this.progress = compoundNBT.getInt("Progress");
-        this.meshStack = ItemStack.read(compoundNBT.getCompound("Mesh"));
-        this.content = ItemStack.read(compoundNBT.getCompound("Content"));
+    public void read(CompoundNBT compound) {
+        super.read(compound);
+        this.progress = compound.getInt("Progress");
+        this.meshStack = ItemStack.read(compound.getCompound("Mesh"));
+        this.content = ItemStack.read(compound.getCompound("Content"));
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compoundNBT) {
-        super.write(compoundNBT);
-        compoundNBT.putInt("Progress", progress);
-        compoundNBT.put("Mesh", meshStack.write(new CompoundNBT()));
-        compoundNBT.put("Content", content.write(new CompoundNBT()));
+    public CompoundNBT write(CompoundNBT compound) {
+        super.write(compound);
+        compound.putInt("Progress", progress);
+        compound.put("Mesh", meshStack.write(new CompoundNBT()));
+        compound.put("Content", content.write(new CompoundNBT()));
 
-        return compoundNBT;
+        return compound;
     }
 
     @Override

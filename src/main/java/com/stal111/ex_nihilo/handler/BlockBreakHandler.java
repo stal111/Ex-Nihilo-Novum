@@ -3,6 +3,7 @@ package com.stal111.ex_nihilo.handler;
 import com.stal111.ex_nihilo.init.ModItems;
 import com.stal111.ex_nihilo.item.HammerItem;
 import com.stal111.ex_nihilo.recipe.HammerRecipe;
+import com.stal111.ex_nihilo.recipe.HammerRecipeManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -25,9 +26,9 @@ public class BlockBreakHandler {
         BlockState state = world.getBlockState(event.getPos());
         BlockPos pos = event.getPos();
         if (stack.getItem() instanceof HammerItem) {
-            if (HammerRecipe.getOutput(new ItemStack(state.getBlock())) != null) {
+            if (HammerRecipeManager.getOutputs(new ItemStack(state.getBlock())) != null) {
                 if (!world.getWorld().isRemote()) {
-                    ItemEntity itemEntity = new ItemEntity(world.getWorld(), pos.getX(), pos.getY(), pos.getZ(), HammerRecipe.getOutput(new ItemStack(state.getBlock())));
+                    ItemEntity itemEntity = new ItemEntity(world.getWorld(), pos.getX(), pos.getY(), pos.getZ(), HammerRecipeManager.getOutputs(new ItemStack(state.getBlock())));
                     itemEntity.setDefaultPickupDelay();
                     world.getWorld().addEntity(itemEntity);
                     world.getWorld().setBlockState(pos, Blocks.AIR.getDefaultState());

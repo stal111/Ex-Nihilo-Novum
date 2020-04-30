@@ -1,44 +1,44 @@
 package com.stal111.ex_nihilo.block;
 
-import com.stal111.ex_nihilo.ExNihilo;
-import com.stal111.ex_nihilo.util.Data;
+import com.stal111.ex_nihilo.tileentity.InfestingLeavesTileEntity;
 import com.stal111.ex_nihilo.util.Utils;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nullable;
 import java.util.Random;
 
-public class InfestedLeavesBlock extends LeavesBlock {
+public class InfestingLeavesBlock extends LeavesBlock {
 
     public static final BooleanProperty NEARBY_LEAVES = BooleanProperty.create("nearby_leaves");
     public static final IntegerProperty INFESTING_STAGE = IntegerProperty.create("infesting_stage", 0, 7);
 
-    public InfestedLeavesBlock(Properties properties) {
+    public InfestingLeavesBlock(Properties properties) {
         super(properties.tickRandomly());
         this.setDefaultState(stateContainer.getBaseState().with(DISTANCE, 7).with(PERSISTENT, Boolean.FALSE).with(INFESTING_STAGE, 0).with(NEARBY_LEAVES, false));
     }
 
     @Override
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-        System.out.println("TICK (" + state.get(INFESTING_STAGE) + ")");
-        BlockState newState = state;
-        if (state.get(INFESTING_STAGE) < 7) {
-            newState = state.cycle(INFESTING_STAGE);
-        }
-        if (state.get(NEARBY_LEAVES)) {
-            trySpread(world, pos, rand);
-        }
-        super.tick(newState, world, pos, rand);
+    public boolean hasTileEntity(BlockState state) {
+        return true;
+    }
+
+    @Nullable
+    @Override
+    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+        return new InfestingLeavesTileEntity();
     }
 
     @Override
@@ -81,6 +81,11 @@ public class InfestedLeavesBlock extends LeavesBlock {
             }
         }
         return false;
+    }
+
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.INVISIBLE;
     }
 
     @Override
